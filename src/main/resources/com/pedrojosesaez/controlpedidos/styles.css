@@ -1,0 +1,14 @@
+/* Estilo base para botón */
+.button-hover {
+    -fx-background-color:#008080;
+    -fx-text-fill: white;            /* Texto blanco */
+    -fx-font-size: 14px;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 2);
+}
+/* Estilo al pasar el mouse */
+.button-hover:hover {
+    -fx-background-color: #014f4f;
+}
