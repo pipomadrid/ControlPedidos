@@ -27,18 +27,17 @@ public class SelectFileApplication extends Application {
     private void showSplash(Stage splashStage) {
         // Cargar imagen desde resources
         Image splashImage = new Image(Objects.requireNonNull(
-                getClass().getResourceAsStream("logo_control_pedidos.png")));
+                getClass().getResourceAsStream("Logo_control_pedidos_mejorado.png")));
 
         ImageView imageView = new ImageView(splashImage);
         // Ajuste de tamaño del splash
-        imageView.setFitWidth(1000); // mínimo
+        imageView.setFitWidth(1024); // mínimo
         imageView.setFitHeight(500); // mínimo
         imageView.setPreserveRatio(true); // mantiene proporción
         imageView.setSmooth(true);
         imageView.setCache(true);
         StackPane splashLayout = new StackPane(imageView);
         Scene splashScene = new Scene(splashLayout);
-
         splashStage.initStyle(StageStyle.UNDECORATED);
         splashStage.setScene(splashScene);
         splashStage.show();
