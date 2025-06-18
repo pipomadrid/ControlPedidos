@@ -3,36 +3,36 @@ package com.pedrojosesaez.controlpedidos.model;
 import java.io.File;
 import java.util.Map;
 
-public class ReservedBean {
+public class PackingListBean {
 
-    File fileReserved;
+    File filePackingList;
     int columnaPart;
     int columnaCantidad;
     int filaInicial;
-    Map<String,Integer> mapReserved;
+    Map<String,Integer> mapPackingList;
     String fecha;
 
-    public ReservedBean(File fileReserved, int columnaPart, int columnaCantidad, int filaInicial) {
-        this.fileReserved = fileReserved;
+    public PackingListBean(File filePackingList, int columnaPart, int columnaCantidad, int filaInicial) {
+        this.filePackingList = filePackingList;
         this.columnaPart = columnaPart;
         this.columnaCantidad = columnaCantidad;
         this.filaInicial = filaInicial;
     }
 
-    public ReservedBean( String  file) {
-        this.fileReserved = new File(file);
-        this.columnaPart = 10;
-        this.columnaCantidad = 18;
-        this.filaInicial = 19;
+    public PackingListBean(String  file) {
+        this.filePackingList = new File(file);
+        this.columnaPart = 3;
+        this.columnaCantidad = 4;
+        this.filaInicial = 20;
     }
 
 
-    public File getFileReserved() {
-        return fileReserved;
+    public File getFilePackingList() {
+        return filePackingList;
     }
 
     public void setFileReserved(File fileReserved) {
-        this.fileReserved = fileReserved;
+        this.filePackingList = fileReserved;
     }
 
     public int getColumnaPart() {
@@ -59,12 +59,12 @@ public class ReservedBean {
         this.filaInicial = filaInicial;
     }
 
-    public Map<String, Integer> getMapReserved() {
-        return mapReserved;
+    public Map<String, Integer> getMapPackingList() {
+        return mapPackingList;
     }
 
-    public void setMapReserved(Map<String, Integer> mapReserved) {
-        this.mapReserved = mapReserved;
+    public void setMapPackingList(Map<String, Integer> mapPackingList) {
+        this.mapPackingList = mapPackingList;
     }
 
     public String getFecha() {

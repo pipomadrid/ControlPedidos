@@ -4,16 +4,16 @@ public class DatosExcel {
 
 
     private int valorOrdered;
-    private int valorReserved;
+    private int valorPackingList;
 
-    public DatosExcel(int valorOrdered, int valorReserved) {
+    public DatosExcel(int valorOrdered, int valorPackingList) {
         this.valorOrdered = valorOrdered;
-        this.valorReserved = valorReserved;
+        this.valorPackingList = valorPackingList;
     }
 
     public void sumar(int v1, int v2) {
         this.valorOrdered += v1;
-        this.valorReserved += v2;
+        this.valorPackingList += v2;
     }
 
     public int getValorOrdered() {
@@ -24,11 +24,11 @@ public class DatosExcel {
         this.valorOrdered = valorOrdered;
     }
 
-    public int getValorReserved() {
-        return valorReserved;
+    public int getValorPackingList() {
+        return valorPackingList;
     }
 
-    public void setValorReserved(int valorReserved) {
-        this.valorReserved = valorReserved;
+    public void setValorvalorPackingList(int valorReserved) {
+        this.valorPackingList = valorReserved;
     }
 }

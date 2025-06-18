@@ -29,7 +29,7 @@
                         <Insets left="20.0" right="10.0" top="20.0" />
                      </VBox.margin>
                   </Button>
-                   <Button fx:id="btnRes" alignment="CENTER" contentDisplay="TOP" onAction="#onSelectFile2ButtonClick" styleClass="button-hover" stylesheets="@styles.css" text="Selecciona Reserved">
+                   <Button fx:id="btnRes" alignment="CENTER" contentDisplay="TOP" onAction="#onSelectFile2ButtonClick" styleClass="button-hover" stylesheets="@styles.css" text="Selecciona Packing List">
                      <VBox.margin>
                         <Insets left="20.0" right="10.0" top="20.0" />
                      </VBox.margin></Button>

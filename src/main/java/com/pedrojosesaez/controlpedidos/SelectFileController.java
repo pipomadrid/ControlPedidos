@@ -1,7 +1,7 @@
 package com.pedrojosesaez.controlpedidos;
 
 import com.pedrojosesaez.controlpedidos.model.ControlPedidosBean;
-import com.pedrojosesaez.controlpedidos.model.ReservedBean;
+import com.pedrojosesaez.controlpedidos.model.PackingListBean;
 import com.pedrojosesaez.controlpedidos.model.SubsidiaryBean;
 import com.pedrojosesaez.controlpedidos.utils.ExcelUtilities;
 import javafx.fxml.FXML;
@@ -101,7 +101,7 @@ public class SelectFileController {
         // Verificar si se seleccionó un archivo
         if (fileRes != null) {
             textFieldRes.setText(fileRes.getAbsolutePath());
-            if(!fileRes.getPath().contains("Reserved")){
+            if(!fileRes.getPath().contains("Spain")){
                 mostrarAlerta("No es un archivo Reserved",Alert.AlertType.ERROR);
                 textFieldRes.setText("");
             }
@@ -157,15 +157,15 @@ public class SelectFileController {
     @FXML
     protected void procesarFicheros(){
         if(chexBox.isSelected() && validarFormulario(true)){
-            ReservedBean reservedBean = new ReservedBean(textFieldRes.getText());
-            SubsidiaryBean subsidiaryBean = new SubsidiaryBean();
-            reservedBean.setFecha(ExcelUtilities.obtenerFechaReserved(reservedBean.getFileReserved()));
-            // Crea Excel Control Pedidos Inicial con Cabeceras
-            ControlPedidosBean controlPedidosBean = ExcelUtilities.crearArchivoDestinoNuevo(reservedBean);
+            PackingListBean packingListBean = new PackingListBean(textFieldRes.getText());
+            SubsidiaryBean subsidiaryBean = new SubsidiaryBean(textFieldSub.getText());
+            packingListBean.setFecha(ExcelUtilities.obtenerFechaPackingList(packingListBean.getFilePackingList()));
             subsidiaryBean.setMapSubsidiary(ExcelUtilities.procesarFicheroSubsidiary(subsidiaryBean));
-            ExcelUtilities.procesarFicheroReserved(reservedBean,subsidiaryBean.getMapSubsidiary());
+            // Crea Excel Control Pedidos Inicial con Cabeceras
+            ControlPedidosBean controlPedidosBean = ExcelUtilities.crearArchivoDestinoNuevo(packingListBean,subsidiaryBean);
+            ExcelUtilities.procesarFicheroPackingList(packingListBean,subsidiaryBean.getMapSubsidiary());
             // Escribe los datos en el fichero
-            ExcelUtilities.cargaDatosExistentes(controlPedidosBean.getFileControlPedidos(), subsidiaryBean.getMapSubsidiary(),true);
+            ExcelUtilities.cargaDatosExistentes2(controlPedidosBean.getFileControlPedidos(), subsidiaryBean.getMapSubsidiary(),true);
             textFieldControl.setText(preferences.get("FileControl","Archivo"));
             mostrarAlerta("Archivo creado con éxito",Alert.AlertType.INFORMATION);
             chexBox.setSelected(false);
@@ -175,16 +175,16 @@ public class SelectFileController {
             abrirExcel(controlPedidosBean);
         }else {
             if (!chexBox.isSelected() && validarFormulario(false)) {
-                ReservedBean reservedBean = new ReservedBean(textFieldRes.getText());
-                SubsidiaryBean subsidiaryBean = new SubsidiaryBean();
-                reservedBean.setFecha(ExcelUtilities.obtenerFechaReserved(reservedBean.getFileReserved()));
-                subsidiaryBean.setMapSubsidiary(ExcelUtilities.procesarFicheroSubsidiary(subsidiaryBean));
-                ExcelUtilities.procesarFicheroReserved(reservedBean, subsidiaryBean.getMapSubsidiary());
-                ControlPedidosBean controlPedidosBean = new ControlPedidosBean();
                 if (fileControl != null) {
+                    PackingListBean packingListBean = new PackingListBean(textFieldRes.getText());
+                    SubsidiaryBean subsidiaryBean = new SubsidiaryBean(textFieldSub.getText());
+                    ControlPedidosBean controlPedidosBean = new ControlPedidosBean();
                     controlPedidosBean.setFileControlPedidos(fileControl);
-                    ExcelUtilities.crearCabecera(fileControl, reservedBean);
-                    ExcelUtilities.cargaDatosExistentes(controlPedidosBean.getFileControlPedidos(), subsidiaryBean.getMapSubsidiary(), false);
+                    packingListBean.setFecha(ExcelUtilities.obtenerFechaPackingList(packingListBean.getFilePackingList()));
+                    subsidiaryBean.setMapSubsidiary(ExcelUtilities.procesarFicheroSubsidiary(subsidiaryBean));
+                    ExcelUtilities.procesarFicheroPackingList(packingListBean, subsidiaryBean.getMapSubsidiary());
+                    ExcelUtilities.crearCabecera(fileControl, packingListBean);
+                    ExcelUtilities.cargaDatosExistentes2(controlPedidosBean.getFileControlPedidos(), subsidiaryBean.getMapSubsidiary(), false);
                     mostrarAlerta("Archivo modificado con éxito", Alert.AlertType.INFORMATION);
                     abrirExcel(controlPedidosBean);
                 } else {
@@ -237,8 +237,7 @@ public class SelectFileController {
         Alert alerta = new Alert(alertType);
         alerta.setTitle("Aviso");
         alerta.setHeaderText(mensaje);
-        Optional<ButtonType> resultado = alerta.showAndWait();
-        return resultado;
+        return alerta.showAndWait();
     }
 
     private boolean existeArchivo(String ruta){
@@ -249,8 +248,8 @@ public class SelectFileController {
     private boolean validarFormulario(boolean isControlNuevo){
         String error = "";
         List<String> listaFechas = new ArrayList<>();
-        if(!existeArchivo(textFieldRes.getText()) && !textFieldRes.getText().contains("Reserved")){
-            error = "Archivo Reserved no válido \n";
+        if(!existeArchivo(textFieldRes.getText()) && !textFieldRes.getText().contains("Spain")){
+            error = "Archivo PackingList no válido \n";
         }
         if(!existeArchivo(textFieldSub.getText()) && !textFieldSub.getText().contains("Subsiders")){
             error += "Archivo Subsidiary no válido \n";
@@ -261,10 +260,10 @@ public class SelectFileController {
             } else if (ExcelUtilities.isExcelFileOpen(textFieldControl.getText())) {
                 error += "El archivo de Control está abierto, ciérrelo y vuelva a ejecutar\n";
             } else {
-                listaFechas = ExcelUtilities.obtenerFechaReservedEnControl(new File(textFieldControl.getText()));
-                File fileReserved = new File(textFieldRes.getText());
-                if (listaFechas.stream().anyMatch(x -> x.equals(ExcelUtilities.obtenerFechaReserved(fileReserved)))) {
-                    error += "El archivo Reserved con fecha " + ExcelUtilities.obtenerFechaReserved(fileReserved) + " ya existe en este archivo de Control\n";
+                listaFechas = ExcelUtilities.obtenerFechaPackingListEnControl(new File(textFieldControl.getText()));
+                File filePackingList = new File(textFieldRes.getText());
+                if (listaFechas.stream().anyMatch(x -> x.equals(ExcelUtilities.obtenerFechaPackingList(filePackingList)))) {
+                    error += "El archivo PackingList con fecha " + ExcelUtilities.obtenerFechaPackingList(filePackingList) + " ya existe en este archivo de Control\n";
                 }
             }
         }

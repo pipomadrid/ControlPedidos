@@ -8,6 +8,7 @@ public class SubsidiaryBean {
     Map<String,DatosExcel> mapSubsidiary;
     int filaInicio;
     int columnaInicio;
+    int filaFecha;
 
 
 
@@ -15,18 +16,26 @@ public class SubsidiaryBean {
     String fecha;
     File fileSubsidiary;
 
-    public SubsidiaryBean(File fileSubsidiary, int filaInicio, int columnaInicio,int columnaOrderedQty) {
+    public SubsidiaryBean(File fileSubsidiary, int filaInicio, int columnaInicio,int columnaOrderedQty,int filaFecha) {
         this.filaInicio = filaInicio;
         this.columnaInicio = columnaInicio;
         this.fileSubsidiary = fileSubsidiary;
         this.columnaOrderedQty = columnaOrderedQty;
+        this.filaFecha = filaFecha;
     }
 
-    public SubsidiaryBean() {
-        this.filaInicio = 20;
+    public SubsidiaryBean(String file) {
+        if(file.contains("cleaned")){
+            this.filaInicio = 20;
+            this.filaFecha = 14;
+        }else{
+            this.filaInicio = 18;
+            this.filaFecha = 12;
+        }
         this.columnaInicio = 1;
-        this.fileSubsidiary = new File("C:\\Users\\PedroJoseSaezSanchez\\Documents\\Sara\\CS0536 Subsiders sales orders status.cleaned.xlsx");
         this.columnaOrderedQty = 19;
+        this.fileSubsidiary = new File(file);
+
     }
 
 
@@ -76,6 +85,15 @@ public class SubsidiaryBean {
     public void setColumnaOrderedQty(int columnaOrderedQty) {
         this.columnaOrderedQty = columnaOrderedQty;
     }
+
+    public int getFilaFecha() {
+        return filaFecha;
+    }
+
+    public void setFilaFecha(int filaFecha) {
+        this.filaFecha = filaFecha;
+    }
+
 
 
 }
