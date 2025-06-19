@@ -5,12 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.pedrojosesaez</groupId>
     <artifactId>ControlPedidos</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>ControlPedidos</name>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.0</junit.version>
+        <javafx.version>21.0.7</javafx.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <main.class>com.pedrojosesaez.controlpedidos.StarterClass</main.class>
+        <poi.version>5.4.0</poi.version>
     </properties>
     <build>
         <plugins>
@@ -23,27 +27,60 @@
                     <target>21</target>
                 </configuration>
             </plugin>
-            <!-- Plugin para crear un JAR "fat" con dependencias -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.7.1</version>
-                        <configuration>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                            <archive>
-                                <manifest>
-                                    <mainClass>com.pedrojosesaez.controlpedidos.StarterClass</mainClass> <!-- Cambia por tu clase principal -->
-                                </manifest>
-                            </archive>
-                        </configuration>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${main.class}</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
+            </plugin>
+            <!-- Plugin jpackage para crear instalador o ejecutable -->
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.6.6</version>
+                <executions>
+                    <execution>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jpackage</goal>
+                        </goals>
+                        <configuration>
+                            <input>${project.build.directory}</input>
+                            <destination>C:\Users\PedroJoseSaezSanchez\IdeaProjects\ejecutables</destination>
+                            <name>ControlPedidos</name>
+                            <mainJar>ControlPedidos-1.0.jar</mainJar> <!-- Nombre del jar si lo usas -->
+                            <mainClass>${main.class}</mainClass>
+                            <type>APP_IMAGE</type> <!-- exe (Windows), dmg (macOS), deb/rpm (Linux) -->
+                            <appVersion>${project.version}</appVersion>
+                            <icon>src\main\resources\com\pedrojosesaez\controlpedidos\Icono_control_pedidos_mejorado.ico</icon>
+                            <vendor>Pedro José Sáez</vendor>
+                            <verbose>true</verbose>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -155,11 +192,6 @@
             <version>5.1.1</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml-schemas</artifactId>
-            <version>4.1.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-compress</artifactId>
             <version>1.26.0</version>
@@ -169,7 +201,5 @@
             <artifactId>commons-collections4</artifactId>
             <version>4.5.0</version>
     </dependency>
-
     </dependencies>
-
 </project>
