@@ -2,6 +2,9 @@ ControlPedidos
 
 Aplicación de escritorio para procesar y resumir pedidos a partir de archivos Excel, desarrollada en Java 21 y JavaFX 21.
 Proyecto personal.
+
+<img width="499" height="499" alt="image" src="https://github.com/user-attachments/assets/d27443fb-ce4b-4134-8704-f1ef3d658991" />
+
 <img width="782" height="477" alt="image" src="https://github.com/user-attachments/assets/65f6e917-ebe4-4e25-a13b-0db5a59fb97b" />
 
 
