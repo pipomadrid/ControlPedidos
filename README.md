@@ -1,14 +1,13 @@
-ControlPedidos
+#  **ControlPedidos**
 
-Aplicación de escritorio para procesar y resumir pedidos a partir de archivos Excel, desarrollada en Java 21 y JavaFX 21.
-Proyecto personal.
+Aplicación de escritorio para procesar y resumir pedidos a partir de archivos Excel, desarrollada en Java 21 y JavaFX 21 (Proyecto personal).
 
-<img width="499" height="499" alt="image" src="https://github.com/user-attachments/assets/d27443fb-ce4b-4134-8704-f1ef3d658991" />
+<img width="300"  alt="image" src="https://github.com/user-attachments/assets/d27443fb-ce4b-4134-8704-f1ef3d658991" />
 
-<img width="782" height="477" alt="image" src="https://github.com/user-attachments/assets/65f6e917-ebe4-4e25-a13b-0db5a59fb97b" />
+<img width="300" height="477" alt="image" src="https://github.com/user-attachments/assets/65f6e917-ebe4-4e25-a13b-0db5a59fb97b" />
 
 
-🚀 Funcionalidades principales
+## 🚀 **Funcionalidades principales**
 
 ✅ Cargar múltiples archivos Excel con información de pedidos y clientes.
 
@@ -22,20 +21,25 @@ Proyecto personal.
 
 ✅ Rápido y confiable, incluso con grandes volúmenes de datos.
 
-🛠 Tecnologías usadas
+<br> 
 
-Java 21
+## 🛠 **Tecnologías usadas**
 
-JavaFX 21
+- Java 21
 
-Maven como gestor de dependencias
+- JavaFX 21
 
-Apache POI para lectura y escritura de archivos Excel
+- Maven como gestor de dependencias
 
-Plugins Maven:
+- Apache POI para lectura y escritura de archivos Excel
 
-maven-assembly-plugin → JAR con dependencias
+- Plugins Maven:
 
-javafx-maven-plugin → ejecutar la app con JavaFX
+  - maven-assembly-plugin → JAR con dependencias
 
-jpackage-maven-plugin → generar ejecutables .exe o .pkg
+  - javafx-maven-plugin → ejecutar la app con JavaFX
+
+  - jpackage-maven-plugin → generar ejecutables .exe o .pkg
+ 
+<br> 
+
