@@ -1,7 +1,8 @@
-Proyecto personal. Aplicación de escritorio para procesar y resumir pedidos a partir de archivos Excel, desarrollada en Java 21 y JavaFX 21.
+ControlPedidos
 
-
-![Uploading image.png…]()
+Aplicación de escritorio para procesar y resumir pedidos a partir de archivos Excel, desarrollada en Java 21 y JavaFX 21.
+Proyecto personal.
+<img width="782" height="477" alt="image" src="https://github.com/user-attachments/assets/65f6e917-ebe4-4e25-a13b-0db5a59fb97b" />
 
 
 🚀 Funcionalidades principales
